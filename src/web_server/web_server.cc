@@ -92,6 +92,10 @@ struct web_server::impl {
     settings_->request_queue_limit_ = limit;
   }
 
+  void set_ws_read_message_max(std::uint64_t limit) const {
+    settings_->ws_read_message_max_ = limit;
+  }
+
   void do_accept() {
     acceptor_.async_accept(
         asio::make_strand(ioc_),
@@ -153,6 +157,10 @@ void web_server::set_request_body_limit(std::uint64_t limit) const {
 
 void web_server::set_request_queue_limit(std::size_t limit) const {
   impl_->set_request_queue_limit(limit);
+}
+
+void web_server::set_ws_read_message_max(std::uint64_t limit) const {
+  impl_->set_ws_read_message_max(limit);
 }
 
 void web_server::on_http_request(http_req_cb_t cb) const {

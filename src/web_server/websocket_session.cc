@@ -70,6 +70,9 @@ private:
         boost::beast::websocket::stream_base::timeout::suggested(
             boost::beast::role_type::server));
 
+    // Refuse oversized client messages before they are buffered.
+    derived().ws().read_message_max(settings_->ws_read_message_max_);
+
     // Set a decorator to change the Server of the handshake
     derived().ws().set_option(boost::beast::websocket::stream_base::decorator(
         [](boost::beast::websocket::response_type& res) {
